@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class InspectionType(
-    @PrimaryKey @ColumnInfo(name = "name") val name: String,
+data class InspectionData(
+    @PrimaryKey @ColumnInfo(name = "inspectionName") val inspectionName: String,
     @ColumnInfo(name = "period") val period: Int,
 )
