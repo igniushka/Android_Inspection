@@ -1,14 +1,21 @@
 package db.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 
-
-@Entity
-data class AnswerData(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "answer") val answer: String?,
-    @ColumnInfo(name = "question") val question: String?,
+@Entity(
+    foreignKeys = [
+        ForeignKey(entity = QuestionData::class,
+            parentColumns = arrayOf("questionDataId"),
+            childColumns = arrayOf("questionDataId"),
+            onDelete = ForeignKey.CASCADE)],
+    indices = [Index(
+    value = ["answerName"],
+    unique = true
+)]
+)data class AnswerData(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
+    @ColumnInfo(name = "answerName") val answerName: String,
+    @ColumnInfo(name = "answer") val answer: String,
+    @ColumnInfo(name = "questionDataId") val questionDataId: String,
 )
