@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/deep_blue">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="25dp"
+          >
+
+            <TextView
+                android:id="@+id/hello_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome user!"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                />
+            <Button
+                android:layout_marginTop="50dp"
+                android:id="@+id/new_inspection"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_btn"
+                android:text="START A NEW INSPECTION"
+                android:textSize="13sp"
+                app:backgroundTint="@color/light_blue"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/continue_inspection"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/rounded_btn"
+                android:text="CONTINUE INSPECTION"
+                android:textSize="13sp"
+                app:backgroundTint="@color/light_blue"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/history"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_btn"
+                android:text="View completed"
+                android:textSize="13sp"
+                app:backgroundTint="@color/light_blue"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/schedule"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_btn"
+                android:text="View schedule"
+                android:textSize="13sp"
+                app:backgroundTint="@color/light_blue"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/log_out"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_btn"
+                android:text="Log out"
+                android:textSize="13sp"
+                app:backgroundTint="@color/red"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</layout>
