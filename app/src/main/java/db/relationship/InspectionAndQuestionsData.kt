@@ -10,7 +10,7 @@ import db.entity.QuestionInspectionDataRelationship
 data class InspectionAndQuestionsData(
     @Embedded val inspectionData: InspectionData,
     @Relation(
-        parentColumn = "inspectionName",
+        parentColumn = "inspectionDataId",
         entityColumn = "questionDataId",
         associateBy = Junction(QuestionInspectionDataRelationship::class)
     )
