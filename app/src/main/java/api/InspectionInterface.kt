@@ -23,6 +23,6 @@ interface InspectionInterface {
     @FormUrlEncoded
     @POST("/verify")
     fun verify(
-        @Field("token") accessToken: String,
+        @Field("token") accessToken: String
     ): Call<ResponseBean>
 }

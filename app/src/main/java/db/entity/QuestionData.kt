@@ -5,13 +5,17 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(indices = [Index(
-    value = ["questionName"],
-    unique = true
-)]
+@Entity(
+    indices = [Index(
+        value = ["questionName"],
+        unique = true
+    )]
 )
 data class QuestionData(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "questionDataId") val questionDataId: Int,
     @ColumnInfo(name = "questionName") val questionName: String,
-    @ColumnInfo(name = "question") val question: String,
-    )
+    @ColumnInfo(name = "question") val question: String
+) {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "questionDataId")
+    var questionDataId: Int = 0
+}

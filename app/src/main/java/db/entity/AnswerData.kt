@@ -5,17 +5,23 @@ import androidx.room.*
 
 @Entity(
     foreignKeys = [
-        ForeignKey(entity = QuestionData::class,
+        ForeignKey(
+            entity = QuestionData::class,
             parentColumns = arrayOf("questionDataId"),
             childColumns = arrayOf("questionDataId"),
-            onDelete = ForeignKey.CASCADE)],
+            onDelete = ForeignKey.CASCADE
+        )],
     indices = [Index(
-    value = ["answerName"],
-    unique = true
-)]
-)data class AnswerData(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
+        value = ["answerName"],
+        unique = true
+    )]
+)
+data class AnswerData(
     @ColumnInfo(name = "answerName") val answerName: String,
     @ColumnInfo(name = "answer") val answer: String,
-    @ColumnInfo(name = "questionDataId") val questionDataId: String,
-)
+    @ColumnInfo(name = "questionDataId") val questionDataId: String
+) {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Int = 0
+}

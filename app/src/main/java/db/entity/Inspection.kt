@@ -18,10 +18,10 @@ data class Inspection(
     @ColumnInfo(name = "user") val user: String,
     @ColumnInfo(name = "inspectionDataId") val inspectionDataId: Int,
     @ColumnInfo(name = "type") val type: String,
-    @ColumnInfo(name = "completed") val completed: Boolean,
+    @ColumnInfo(name = "completed") val completed: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Int = 0
+    var id: Int = 0
 }
 
