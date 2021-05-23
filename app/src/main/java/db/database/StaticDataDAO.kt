@@ -10,16 +10,16 @@ import db.entity.QuestionInspectionDataRelationship
 
 @Dao
 interface StaticDataDAO {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertInspectionData(vararg inspectionData: InspectionData)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertQuestionData(vararg questionData: QuestionData)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAnswerData(vararg answerData: AnswerData)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertInspectionQuestionRelationship(vararg answerData: QuestionInspectionDataRelationship)
 
 }

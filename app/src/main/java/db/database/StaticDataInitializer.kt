@@ -231,5 +231,7 @@ class StaticDataInitializer {
         dao.insertInspectionQuestionRelationship(inspectionQuestion32)
         dao.insertInspectionQuestionRelationship(inspectionQuestion33)
         dao.insertInspectionQuestionRelationship(inspectionQuestion34)
+        dao.insertInspectionQuestionRelationship(inspectionQuestion35)
+        dao.insertInspectionQuestionRelationship(inspectionQuestion36)
     }
 }
