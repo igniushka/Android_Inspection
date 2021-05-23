@@ -12,10 +12,9 @@ import androidx.room.PrimaryKey
     )]
 )
 data class QuestionData(
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "questionDataId")
+    val questionDataId: Int,
     @ColumnInfo(name = "questionName") val questionName: String,
     @ColumnInfo(name = "question") val question: String
-) {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "questionDataId")
-    var questionDataId: Int = 0
-}
+)

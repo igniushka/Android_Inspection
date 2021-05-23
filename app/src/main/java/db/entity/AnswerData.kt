@@ -17,11 +17,12 @@ import androidx.room.*
     )]
 )
 data class AnswerData(
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "id")
+    val id: Int,
     @ColumnInfo(name = "answerName") val answerName: String,
     @ColumnInfo(name = "answer") val answer: String,
-    @ColumnInfo(name = "questionDataId") val questionDataId: String
+    @ColumnInfo(name = "questionDataId") val questionDataId: Int
 ) {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int = 0
+
 }

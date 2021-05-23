@@ -13,7 +13,7 @@ private const val DB_NAME = "inspection_db"
     version = 1
 )
 abstract class AppDatabase : RoomDatabase(){
-    abstract fun getDAO(): DAO
+    abstract fun getStaticDataDAO(): StaticDataDAO
 }
 
 object DatabaseManager {

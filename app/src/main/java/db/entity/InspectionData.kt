@@ -12,11 +12,13 @@ import androidx.room.PrimaryKey
     )]
 )
 data class InspectionData(
-    @ColumnInfo(name = "period") val period: Int,
-    @ColumnInfo(name = "location") val location: String,
-    @ColumnInfo(name = "type") val type: String
-) {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    var id: Int = 0
-}
+    var id: Int,
+    @ColumnInfo(name = "period")
+    val period: Int,
+    @ColumnInfo(name = "location")
+    val location: String,
+    @ColumnInfo(name = "type")
+    val type: String
+)
