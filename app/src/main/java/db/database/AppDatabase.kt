@@ -26,6 +26,7 @@ object DatabaseManager {
                 AppDatabase::class.java, DB_NAME
             )
                 .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
                 .build()
             database as AppDatabase
         } else {

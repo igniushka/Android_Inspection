@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import api.InspectionViewModel
 import shared.SharedPreferenceWriter
 
@@ -29,7 +30,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun createNewInspection() {
-        viewModel.verify().observe(this, { result ->
+        viewModel.verify().observe(this, Observer { result ->
             result?.message?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }

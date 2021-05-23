@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import api.InspectionViewModel
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
@@ -47,7 +48,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         if (inputValid()) {
             val username = binding.usernameEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
-            viewModel.register(username, password).observe(this, { result ->
+            viewModel.register(username, password).observe(this, Observer{ result ->
                 if (result != null) {
                     result.message.let {
                         Toast.makeText(this, it, Toast.LENGTH_SHORT).show()

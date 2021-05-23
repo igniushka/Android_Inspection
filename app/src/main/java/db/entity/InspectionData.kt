@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     indices = [Index(
-        value = ["questionName"],
+        value = ["location", "type"],
         unique = true
     )]
 )

@@ -8,7 +8,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import api.InspectionViewModel
+import api.ResponseBean
 import db.database.StaticDataInitializer
 import shared.SharedKeys
 import shared.SharedPreferenceWriter
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (inputValid()) {
             val username = binding.usernameEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
-            viewModel.login(username, password).observe(this, { result ->
+            viewModel.login(username, password).observe(this, Observer { result  ->
                 if (result?.token != null) {
                     Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
                     prefs?.writeStringValue(SharedKeys.TOKEN, result.token)
