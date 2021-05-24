@@ -24,9 +24,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        StaticDataInitializer().initialize(applicationContext)
         viewModel = InspectionViewModel(applicationContext)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        StaticDataInitializer().initialize(applicationContext)
+        binding.progressBarCyclic.visibility= View.INVISIBLE
         binding.loginBtn.setOnClickListener(this)
         binding.registerBtn.setOnClickListener(this)
         prefs = SharedPreferenceWriter.getInstance(applicationContext)

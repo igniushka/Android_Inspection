@@ -22,6 +22,9 @@
         <activity android:name=".HomeActivity"
             android:launchMode="singleTask">
         </activity>
+        <activity android:name=".NewInspectionActivity"
+            android:launchMode="singleTask">
+        </activity>
 
 
 

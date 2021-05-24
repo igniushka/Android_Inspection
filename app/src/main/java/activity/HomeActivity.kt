@@ -1,21 +1,22 @@
 package activity
 
 import activity.databinding.HomeBinding
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import api.InspectionViewModel
 import shared.SharedPreferenceWriter
+
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: HomeBinding
     private lateinit var viewModel: InspectionViewModel
     private var prefs: SharedPreferenceWriter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +30,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding.logOut.setOnClickListener(this)
     }
 
-    private fun createNewInspection() {
-        viewModel.verify().observe(this, Observer { result ->
-            result?.message?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
-        })
+    private fun startNewInspectionActivity() {
+        startActivity(Intent(this, NewInspectionActivity::class.java))
     }
 
     private fun logout() {
@@ -46,7 +43,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-                R.id.new_inspection -> createNewInspection()
+                R.id.new_inspection -> startNewInspectionActivity()
                 R.id.log_out -> logout()
 //                R.id.continue_inspection ->
 //                R.id.history ->
