@@ -1,6 +1,7 @@
 package activity
 
 import activity.databinding.NewInspectionBinding
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -13,6 +14,7 @@ import db.entity.Inspection
 import db.entity.Question
 import db.relationship.InspectionWithQuestionsAndAnswers
 import shared.SharedKeys
+import shared.SharedKeys.INSPECTION_ID
 import shared.SharedPreferenceWriter
 
 
@@ -54,8 +56,9 @@ class NewInspectionActivity : AppCompatActivity(), View.OnClickListener {
                 dao.insertNewAnswer(newAnswer)
             }
         }
-        val inspection = dao.getInspectionQuestionAnswers(newInspectionId)[0]
         binding.progressBarCyclic.visibility = View.INVISIBLE
+        startActivity(Intent(this, QuestionsActivity::class.java).putExtra(INSPECTION_ID, newInspectionId))
+        finish()
     }
 
     override fun onClick(v: View?) {

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/deep_blue">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="25dp"
+            >
+            <TextView
+                android:id="@+id/inspection_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inspection Location and Type"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/question_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Question"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                />
+<!--            <RecyclerView-->
+<!--                android:id="@+id/answer_recycler"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar_cyclic"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:minWidth="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            />
+        <LinearLayout
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/prev_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/rounded_btn"
+                    android:text="Previous"
+                    android:textSize="13sp"
+                    app:backgroundTint="@color/sand"
+                    android:padding="3dp"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="5dp"
+                    />
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/next_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/rounded_btn"
+                    android:text="Next"
+                    android:textSize="13sp"
+                    app:backgroundTint="@color/sand"
+                    android:padding="3dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="5dp"
+                    />
+            </LinearLayout>
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/complete_inspection"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_btn"
+                android:text="Complete Inspection"
+                android:textSize="13sp"
+                app:backgroundTint="@color/light_blue"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/main_menu"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_btn"
+                android:text="Main Menu"
+                android:textSize="13sp"
+                app:backgroundTint="@color/red"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>
