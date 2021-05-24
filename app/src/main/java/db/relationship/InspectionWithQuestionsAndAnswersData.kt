@@ -7,12 +7,14 @@ import db.entity.InspectionData
 import db.entity.QuestionData
 import db.entity.QuestionInspectionDataRelationship
 
-data class InspectionAndQuestionsData(
+data class InspectionWithQuestionsAndAnswersData(
     @Embedded val inspectionData: InspectionData,
     @Relation(
+        entity = QuestionData::class,
         parentColumn = "id",
         entityColumn = "questionDataId",
         associateBy = Junction(QuestionInspectionDataRelationship::class)
     )
-    val questionsData: List<QuestionData>
+    val questions: List<QuestionWithAnswersData>
 )
+

@@ -4,9 +4,15 @@ import activity.databinding.NewInspectionBinding
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import db.database.*
+import db.entity.Answer
+import db.entity.Inspection
+import db.entity.Question
+import db.relationship.InspectionWithQuestionsAndAnswers
+import shared.SharedKeys
 import shared.SharedPreferenceWriter
 
 
@@ -31,10 +37,25 @@ class NewInspectionActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun createNewInspection(){
         binding.progressBarCyclic.visibility = View.VISIBLE
-
+        val type = binding.typeDropdown.selectedItem.toString()
+        val location = binding.locationDropdown.selectedItem.toString()
         val dao = DatabaseManager.getInstance(applicationContext).getInspectionDAO()
-
-
+        val inspectionQuestionsAnswers  = dao.getInspectionQuestionAnswerData(location, type)[0]
+        val inspectionData = inspectionQuestionsAnswers.inspectionData
+        val username = prefs?.getString(SharedKeys.USERNAME).toString()
+        val newInspection = Inspection(username, inspectionData.id, inspectionData.type, inspectionData.location, false)
+        val newInspectionId = dao.insertNewInspection(newInspection)
+        for (questionWithAnswers in inspectionQuestionsAnswers.questions){
+            val questionData = questionWithAnswers.questionData
+            val newQuestion = Question(newInspectionId, questionData.questionDataId, questionData.questionName, questionData.question, false)
+            val questionId = dao.insertNewQuestion(newQuestion)
+            for (answerData in questionWithAnswers.answersData){
+                val newAnswer = Answer(questionId, answerData.id, answerData.answerName, answerData.answer, 0)
+                dao.insertNewAnswer(newAnswer)
+            }
+        }
+        val inspection = dao.getInspectionQuestionAnswers(newInspectionId)[0]
+        binding.progressBarCyclic.visibility = View.INVISIBLE
     }
 
     override fun onClick(v: View?) {

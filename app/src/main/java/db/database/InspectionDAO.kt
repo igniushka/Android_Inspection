@@ -1,25 +1,45 @@
 package db.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import db.entity.AnswerData
-import db.entity.InspectionData
-import db.entity.QuestionData
-import db.entity.QuestionInspectionDataRelationship
+import androidx.room.*
+import db.entity.Answer
+import db.entity.Inspection
+import db.entity.Question
+import db.relationship.InspectionWithQuestionsAndAnswers
+import db.relationship.InspectionWithQuestionsAndAnswersData
+
 
 @Dao
 interface InspectionDAO {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertInspectionData(vararg inspectionData: InspectionData)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertQuestionData(vararg questionData: QuestionData)
+    @Transaction
+    @Query("SELECT * FROM InspectionData WHERE location = :location AND type = :type")
+    fun getInspectionQuestionAnswerData(location: String, type: String): List<InspectionWithQuestionsAndAnswersData>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAnswerData(vararg answerData: AnswerData)
+    @Transaction
+    @Query("SELECT * FROM Inspection WHERE id = :id")
+    fun getInspectionQuestionAnswers(id: Long): List<InspectionWithQuestionsAndAnswers>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertInspectionQuestionRelationship(vararg answerData: QuestionInspectionDataRelationship)
+    @Insert
+    fun insertNewInspection(inspection: Inspection) : Long
+
+    @Insert
+    fun insertNewQuestion(question: Question) : Long
+
+    @Insert
+    fun insertNewAnswer(answer: Answer)
+
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun insert(user: User?): Long
+
+
+//    @Transaction
+//    @Query("SELECT * FROM InspectionData WHERE location = :location AND type = :type")
+//    fun getInspectionData(location: String, type: String): List<InspectionAndQuestionsData>
+//
+//    @Transaction
+//    @Query("SELECT * FROM QuestionData WHERE questionDataId = :questionId")
+//    fun getQuestionAnswerData(questionId: Int): List<QuestionWithAnswersData>
+
+
 
 }

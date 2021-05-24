@@ -16,12 +16,13 @@ import androidx.room.PrimaryKey
 )
 data class Inspection(
     @ColumnInfo(name = "user") val user: String,
-    @ColumnInfo(name = "inspectionDataId") val inspectionDataId: Int,
+    @ColumnInfo(name = "inspectionDataId") val inspectionDataId: Long,
     @ColumnInfo(name = "type") val type: String,
+    @ColumnInfo(name = "location") val location: String,
     @ColumnInfo(name = "completed") val completed: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0
+    var id: Long = 0
 }
 

@@ -5,7 +5,7 @@ import androidx.room.Relation
 import db.entity.AnswerData
 import db.entity.QuestionData
 
-data class QuestionsAndAnswersData(
+data class QuestionWithAnswersData(
     @Embedded val questionData: QuestionData,
     @Relation(
         parentColumn = "questionDataId",

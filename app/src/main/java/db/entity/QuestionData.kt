@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
 data class QuestionData(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "questionDataId")
-    val questionDataId: Int,
+    val questionDataId: Long,
     @ColumnInfo(name = "questionName") val questionName: String,
     @ColumnInfo(name = "question") val question: String
 )

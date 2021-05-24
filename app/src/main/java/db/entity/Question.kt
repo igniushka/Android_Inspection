@@ -22,14 +22,17 @@ import androidx.room.PrimaryKey
         )]
 )
 data class Question(
-    @ColumnInfo(name = "inspectionId") val inspectionId: Int,
-    @ColumnInfo(name = "questionDataId") val questionDataId: Int,
+    @ColumnInfo(name = "inspectionId") val inspectionId: Long,
+    @ColumnInfo(name = "questionDataId") val questionDataId: Long,
+    @ColumnInfo(name = "questionName") val questionName: String,
+    @ColumnInfo(name = "question") val question: String,
     @ColumnInfo(name = "notApplicable") val notApplicable: Boolean,
-    @ColumnInfo(name = "question") val question: String
-) {
+
+
+    ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0
+    var id: Long = 0
 
 }
 

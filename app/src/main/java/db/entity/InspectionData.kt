@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
 data class InspectionData(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    var id: Int,
+    var id: Long,
     @ColumnInfo(name = "period")
     val period: Int,
     @ColumnInfo(name = "location")

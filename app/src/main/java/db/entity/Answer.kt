@@ -21,8 +21,9 @@ import androidx.room.PrimaryKey
         )]
 )
 data class Answer(
-    @ColumnInfo(name = "questionId") val questionId: Int,
-    @ColumnInfo(name = "answerDataId") val answerDataId: Int,
+    @ColumnInfo(name = "questionId") val questionId: Long,
+    @ColumnInfo(name = "answerDataId") val answerDataId: Long,
+    @ColumnInfo(name = "answerName") val answerName: String,
     @ColumnInfo(name = "answer") val answer: String,
     @ColumnInfo(name = "value") val value: Int
 ) {

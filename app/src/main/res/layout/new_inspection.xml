@@ -104,7 +104,7 @@
         </LinearLayout>
         <ProgressBar
             android:id="@+id/progressBar_cyclic"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="60dp"
