@@ -1,22 +1,29 @@
 package activity
 
 import activity.databinding.QuestionBinding
+import adapter.AnswerAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import db.database.DatabaseManager
+import db.database.InspectionDAO
+import db.relationship.InspectionWithQuestions
 import db.relationship.InspectionWithQuestionsAndAnswers
+import db.relationship.QuestionWithAnswers
 import shared.SharedKeys
+
 
 class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: QuestionBinding
-    private lateinit var inspectionInfo: InspectionWithQuestionsAndAnswers
+    private lateinit var inspectionInfo: InspectionWithQuestions
+    private lateinit var dao: InspectionDAO
+    private var questionInfo: QuestionWithAnswers? = null
 
-    var questionNo = 0
+    private var questionNo = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +32,9 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         binding.nextQuestion.setOnClickListener(this)
         binding.mainMenu.setOnClickListener(this)
         binding.completeInspection.setOnClickListener(this)
-        val dao = DatabaseManager.getInstance(applicationContext).getInspectionDAO()
+        dao = DatabaseManager.getInstance(applicationContext).getInspectionDAO()
         val inspectionId = intent.extras!!.getLong(SharedKeys.INSPECTION_ID)
-        inspectionInfo = dao.getInspectionQuestionAnswers(inspectionId)[0]
+        inspectionInfo = dao.getInspectionQuestions(inspectionId)[0]
         val inspectionLabel =
             inspectionInfo.inspection.location + " " + inspectionInfo.inspection.type
         binding.inspectionLabel.text = inspectionLabel
@@ -35,12 +42,10 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setQuestionData() {
-        val questionInfo = inspectionInfo.questions[questionNo]
-        binding.questionText.text = questionInfo.question.question
-
-
-        //set answers to RecycleView
-        Toast.makeText(applicationContext, "question no. $questionNo", Toast.LENGTH_SHORT).show()
+        val questionId = inspectionInfo.questions[questionNo].id
+        questionInfo = dao.getQuestionAnswers(questionId)[0]
+        binding.questionText.text = questionInfo?.question?.question
+        setAnswers()
 
         if (questionNo == 0) {
             setPrevButton(true)
@@ -52,6 +57,15 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             setNextButton(false)
         }
+    }
+
+    private fun setAnswers(){
+        val answersAdapter = questionInfo?.let { AnswerAdapter(it.answers, dao) }
+        val linearLayoutManager = LinearLayoutManager(
+            applicationContext
+        )
+        binding.answerRecycler.layoutManager = linearLayoutManager
+        binding.answerRecycler.adapter = answersAdapter
     }
 
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/deep_blue"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/answer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Answer"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="top" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/answer_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:paddingHorizontal="10dp"
+                android:id="@+id/answer_value"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

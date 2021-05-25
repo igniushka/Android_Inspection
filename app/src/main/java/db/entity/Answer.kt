@@ -25,7 +25,7 @@ data class Answer(
     @ColumnInfo(name = "answerDataId") val answerDataId: Long,
     @ColumnInfo(name = "answerName") val answerName: String,
     @ColumnInfo(name = "answer") val answer: String,
-    @ColumnInfo(name = "value") val value: Int
+    @ColumnInfo(name = "value") var value: Int
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
