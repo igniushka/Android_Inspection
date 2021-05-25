@@ -30,6 +30,18 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding.logOut.setOnClickListener(this)
     }
 
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when (v.id) {
+                R.id.new_inspection -> startNewInspectionActivity()
+                R.id.log_out -> logout()
+                R.id.continue_inspection -> launchContinueInspectionActivity()
+//                R.id.history ->
+//                R.id.schedule ->
+            }
+        }
+    }
+
     private fun startNewInspectionActivity() {
         startActivity(Intent(this, NewInspectionActivity::class.java))
     }
@@ -40,17 +52,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 
-    override fun onClick(v: View?) {
-        if (v != null) {
-            when (v.id) {
-                R.id.new_inspection -> startNewInspectionActivity()
-                R.id.log_out -> logout()
-//                R.id.continue_inspection ->
-//                R.id.history ->
-//                R.id.schedule ->
-
-            }
-        }
-
+    private fun launchContinueInspectionActivity() {
+        startActivity(Intent(this, ContinueInspectionActivity::class.java))
     }
 }

@@ -28,9 +28,9 @@
         <activity android:name=".QuestionsActivity"
             android:launchMode="singleTask">
         </activity>
-
-
-
+        <activity android:name=".ContinueInspectionActivity"
+            android:launchMode="singleTask">
+        </activity>
 
     </application>
 

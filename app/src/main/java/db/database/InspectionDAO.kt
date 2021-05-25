@@ -48,5 +48,11 @@ interface InspectionDAO {
     @Update
     fun updateAnswer(answer: Answer)
 
+    @Update
+    fun updateInspection(inspection: Inspection)
+
+    @Query("SELECT * FROM Inspection WHERE user = :username AND completed = :completed")
+    fun getUserInspections(username: String, completed: Boolean): List<Inspection>
+
 
 }

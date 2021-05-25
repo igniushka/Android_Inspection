@@ -19,7 +19,7 @@ data class Inspection(
     @ColumnInfo(name = "inspectionDataId") val inspectionDataId: Long,
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "location") val location: String,
-    @ColumnInfo(name = "completed") val completed: Boolean
+    @ColumnInfo(name = "completed") var completed: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

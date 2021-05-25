@@ -26,7 +26,7 @@ data class Question(
     @ColumnInfo(name = "questionDataId") val questionDataId: Long,
     @ColumnInfo(name = "questionName") val questionName: String,
     @ColumnInfo(name = "question") val question: String,
-    @ColumnInfo(name = "notApplicable") val notApplicable: Boolean,
+    @ColumnInfo(name = "notApplicable") var notApplicable: Boolean,
     ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
