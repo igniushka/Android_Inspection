@@ -4,11 +4,13 @@ import activity.databinding.HomeBinding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import api.InspectionViewModel
 import shared.SharedKeys
 import shared.SharedPreferenceWriter
+import util.NetworkUtils
 
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -38,7 +40,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.log_out -> logout()
                 R.id.continue_inspection -> launchContinueInspectionActivity()
                 R.id.history -> launchViewCompletedInspectionActivity()
-//                R.id.schedule ->
+                R.id.schedule -> showSchedule()
             }
         }
     }
@@ -61,4 +63,9 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         startActivity(Intent(this, InspectionListActivity::class.java).putExtra(SharedKeys.COMPLETED, SharedKeys.TRUE))
     }
 
+    private fun showSchedule(){
+      val connected = NetworkUtils.isConnected(applicationContext)
+        Toast.makeText(applicationContext, connected.toString(), Toast.LENGTH_SHORT).show()
+
+    }
 }
