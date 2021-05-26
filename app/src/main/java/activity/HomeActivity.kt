@@ -1,13 +1,13 @@
 package activity
 
 import activity.databinding.HomeBinding
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import api.InspectionViewModel
+import shared.SharedKeys
 import shared.SharedPreferenceWriter
 
 
@@ -17,12 +17,13 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: InspectionViewModel
     private var prefs: SharedPreferenceWriter? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = InspectionViewModel(applicationContext)
         prefs = SharedPreferenceWriter.getInstance(applicationContext)
-        binding = DataBindingUtil.setContentView(this, R.layout.home);
+        binding = DataBindingUtil.setContentView(this, R.layout.home)
+        val username = prefs!!.getString(SharedKeys.USERNAME)
+        "Welcome $username!".also { binding.helloText.text = it }
         binding.newInspection.setOnClickListener(this)
         binding.continueInspection.setOnClickListener(this)
         binding.history.setOnClickListener(this)
@@ -36,7 +37,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.new_inspection -> startNewInspectionActivity()
                 R.id.log_out -> logout()
                 R.id.continue_inspection -> launchContinueInspectionActivity()
-//                R.id.history ->
+                R.id.history -> launchViewCompletedInspectionActivity()
 //                R.id.schedule ->
             }
         }
@@ -53,6 +54,11 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun launchContinueInspectionActivity() {
-        startActivity(Intent(this, ContinueInspectionActivity::class.java))
+        startActivity(Intent(this, InspectionListActivity::class.java).putExtra(SharedKeys.COMPLETED, SharedKeys.FALSE))
     }
+
+    private fun launchViewCompletedInspectionActivity() {
+        startActivity(Intent(this, InspectionListActivity::class.java).putExtra(SharedKeys.COMPLETED, SharedKeys.TRUE))
+    }
+
 }

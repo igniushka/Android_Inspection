@@ -1,6 +1,7 @@
 package shared
 
 object SharedKeys {
+    const val COMPLETED = "completed"
     const val INSPECTION_ID = "inspectionId"
     const val USERNAME = "username"
     const val PASSWORD = "password"

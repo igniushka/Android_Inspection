@@ -111,13 +111,13 @@
                 app:backgroundTint="@color/light_blue" />
 
             <Button
-                android:id="@+id/main_menu"
+                android:id="@+id/back"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_btn"
                 android:padding="3dp"
-                android:text="Main Menu"
+                android:text="Back"
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 app:backgroundTint="@color/red" />

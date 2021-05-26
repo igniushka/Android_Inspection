@@ -13,7 +13,7 @@ import db.database.InspectionDAO
 import db.entity.Answer
 
 
-class AnswerAdapter(private val answers: List<Answer>, private val dao: InspectionDAO) :
+class AnswerAdapter(private val answers: List<Answer>, private val dao: InspectionDAO, private val completed: Boolean) :
     RecyclerView.Adapter<AnswerViewHolder>() {
     private var value: Int = 0
 
@@ -30,6 +30,7 @@ class AnswerAdapter(private val answers: List<Answer>, private val dao: Inspecti
         holder.binding.answerText.text = answer.answer
         holder.binding.answerSeekbar.progress = answer.value
         holder.binding.answerValue.text = answer.value.toString()
+        holder.binding.answerSeekbar.isEnabled = !completed
         holder.binding.answerSeekbar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 holder.binding.answerValue.text = progress.toString()
@@ -42,7 +43,6 @@ class AnswerAdapter(private val answers: List<Answer>, private val dao: Inspecti
                 answer.value = value
                 dao.updateAnswer(answer)
             }
-
         })
     }
 
@@ -50,4 +50,5 @@ class AnswerAdapter(private val answers: List<Answer>, private val dao: Inspecti
         return answers.size
     }
 }
+
 class AnswerViewHolder(val binding: AnswerBinding) : ViewHolder(binding.root)

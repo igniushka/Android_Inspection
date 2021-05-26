@@ -8,16 +8,16 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import db.entity.Inspection
 import shared.SharedKeys
 
 
-class ContinueInspectionAdapter(
+class InspectionAdapter(
     private val inspections: List<Inspection>,
-    private val activity: Activity
+    private val activity: Activity,
+    private val completed: Boolean
 ) :
     RecyclerView.Adapter<InspectionViewHolder>() {
 
@@ -35,10 +35,17 @@ class ContinueInspectionAdapter(
         holder.binding.type.text = inspection.type
         holder.binding.completed.text = inspection.completed.toString()
         holder.binding.inspection.setOnClickListener {
-            activity.startActivity(Intent(activity, QuestionsActivity::class.java).putExtra(SharedKeys.INSPECTION_ID, inspection.id))
+            activity.startActivity(
+                Intent(activity, QuestionsActivity::class.java).putExtra(
+                    SharedKeys.INSPECTION_ID,
+                    inspection.id
+                ).putExtra(
+                    SharedKeys.COMPLETED,
+                    completed
+                )
+            )
             activity.finish()
         }
-
     }
 
     override fun getItemCount(): Int {

@@ -3,6 +3,7 @@ package activity
 import activity.databinding.QuestionBinding
 import adapter.AnswerAdapter
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -24,33 +25,41 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var inspectionInfo: InspectionWithQuestions
     private lateinit var dao: InspectionDAO
     private var questionInfo: QuestionWithAnswers? = null
+    private var completed = false
+
 
     private var questionNo = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        completed = intent.extras?.getBoolean(SharedKeys.COMPLETED) == true
         dao = DatabaseManager.getInstance(applicationContext).getInspectionDAO()
         binding = DataBindingUtil.setContentView(this, R.layout.question)
         binding.prevQuestion.setOnClickListener(this)
         binding.nextQuestion.setOnClickListener(this)
-        binding.mainMenu.setOnClickListener(this)
-        binding.completeInspection.setOnClickListener(this)
-        binding.naCheckbox.setOnCheckedChangeListener(object :
-            CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                val question = questionInfo?.question
-                if (question != null) {
-                    question.notApplicable = isChecked
-                    dao.updateQuestion(question)
-                }
+        binding.back.setOnClickListener(this)
+        binding.naCheckbox.isEnabled = !completed
+        binding.naCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            val question = questionInfo?.question
+            if (question != null) {
+                question.notApplicable = isChecked
+                dao.updateQuestion(question)
             }
-        })
+        }
         val inspectionId = intent.extras!!.getLong(SharedKeys.INSPECTION_ID)
         inspectionInfo = dao.getInspectionQuestions(inspectionId)[0]
         val inspectionLabel =
             inspectionInfo.inspection.location + " " + inspectionInfo.inspection.type
         binding.inspectionLabel.text = inspectionLabel
         setQuestionData()
+        if (completed) {
+            binding.completeInspection.visibility = View.GONE
+
+        } else {
+            binding.completeInspection.setOnClickListener(this)
+
+        }
+
     }
 
     private fun setQuestionData() {
@@ -73,7 +82,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setAnswers() {
-        val answersAdapter = questionInfo?.let { AnswerAdapter(it.answers, dao) }
+        val answersAdapter = questionInfo?.let { AnswerAdapter(it.answers, dao, completed) }
         val linearLayoutManager = LinearLayoutManager(
             applicationContext
         )
@@ -112,9 +121,18 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.prev_question -> prevQuestion()
                 R.id.next_question -> nextQuestion()
                 R.id.complete_inspection -> completeInspection()
-                R.id.main_menu -> launchMainMenu()
+                R.id.back -> back()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        Context.CONNECTIVITY_SERVICE
+        back()
+    }
+    private fun back() {
+        startActivity(Intent(this, InspectionListActivity::class.java).putExtra(SharedKeys.COMPLETED, completed.toString()))
+        finish()
     }
 
     private fun prevQuestion() {
@@ -143,7 +161,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     "Inspection completed",
                     Toast.LENGTH_SHORT
                 ).show()
-                launchMainMenu()
+                back()
 
             }
             .setNegativeButton("No") { dialog, _ ->
@@ -152,8 +170,5 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun launchMainMenu() {
-        startActivity(Intent(this, HomeActivity::class.java))
-        finish()
-    }
+
 }
