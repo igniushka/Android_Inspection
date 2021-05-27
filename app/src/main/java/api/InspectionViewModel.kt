@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonIOException
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import db.relationship.InspectionWithQuestionsAndAnswers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +32,7 @@ class InspectionViewModel(applicationContext: Context): ViewModel() {
         .baseUrl(SERVER_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private val inspectionAPI: InspectionInterface = retrofit.create(InspectionInterface::class.java)
+    private val inspectionAPI: InspectionService = retrofit.create(InspectionService::class.java)
 
    private fun getErrorResponse(response: Response<ResponseBean>): ResponseBean? {
         val gson = Gson()
@@ -79,5 +80,10 @@ class InspectionViewModel(applicationContext: Context): ViewModel() {
     fun verify(): LiveData<ResponseBean> {
         val token = prefs?.getString(SharedKeys.TOKEN)
             return apiCall(inspectionAPI.verify(token!!))
+    }
+    fun submitInspection(inspectionInfo: InspectionWithQuestionsAndAnswers): LiveData<ResponseBean> {
+        val token = prefs?.getString(SharedKeys.TOKEN)
+        val body = SubmitInspectionBean(token!!, inspectionInfo)
+        return apiCall(inspectionAPI.submitInspection(body))
     }
 }

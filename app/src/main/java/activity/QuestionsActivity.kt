@@ -13,16 +13,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import api.InspectionViewModel
 import db.database.DatabaseManager
 import db.database.InspectionDAO
 import db.relationship.InspectionWithQuestions
 import db.relationship.QuestionWithAnswers
+import kotlinx.android.synthetic.main.question.*
 import shared.SharedKeys
 
 
 class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: QuestionBinding
+    private var inspectionId: Long = -1
     private lateinit var inspectionInfo: InspectionWithQuestions
     private lateinit var dao: InspectionDAO
     private var questionInfo: QuestionWithAnswers? = null
@@ -47,7 +50,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 dao.updateQuestion(question)
             }
         }
-        val inspectionId = intent.extras!!.getLong(SharedKeys.INSPECTION_ID)
+        inspectionId = intent.extras!!.getLong(SharedKeys.INSPECTION_ID)
         inspectionInfo = dao.getInspectionQuestions(inspectionId)[0]
         val inspectionLabel =
             inspectionInfo.inspection.location + " " + inspectionInfo.inspection.type
@@ -55,8 +58,10 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         setQuestionData()
         if (completed) {
             binding.completeInspection.visibility = View.GONE
+            binding.submitInspection.setOnClickListener(this)
 
         } else {
+            binding.submitInspection.visibility = View.GONE
             binding.completeInspection.setOnClickListener(this)
 
         }
@@ -123,6 +128,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.next_question -> nextQuestion()
                 R.id.complete_inspection -> completeInspection()
                 R.id.back -> back()
+                R.id.submit_inspection -> submitInspection()
             }
         }
     }
@@ -144,6 +150,16 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private fun nextQuestion() {
         questionNo++
         setQuestionData()
+    }
+
+    private fun submitInspection(){
+        val inspection = dao.getInspectionQuestionAnswers(inspectionId)[0]
+        val viewModel = InspectionViewModel(applicationContext)
+        viewModel.submitInspection(inspection).observe(this, { result  ->
+            if (result?.token != null) {
+                Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun completeInspection() {

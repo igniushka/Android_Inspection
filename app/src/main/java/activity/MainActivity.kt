@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (inputValid()) {
             val username = binding.usernameEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
-            viewModel.login(username, password).observe(this, Observer { result  ->
+            viewModel.login(username, password).observe(this, { result  ->
                 if (result?.token != null) {
                     Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
                     prefs?.writeStringValue(SharedKeys.TOKEN, result.token)

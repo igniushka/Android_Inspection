@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(
     foreignKeys = [
@@ -21,12 +22,18 @@ import androidx.room.PrimaryKey
         )]
 )
 data class Answer(
+    @SerializedName("questionId")
     @ColumnInfo(name = "questionId") val questionId: Long,
+    @SerializedName("answerDataId")
     @ColumnInfo(name = "answerDataId") val answerDataId: Long,
+    @SerializedName("answerName")
     @ColumnInfo(name = "answerName") val answerName: String,
+    @SerializedName("answer")
     @ColumnInfo(name = "answer") val answer: String,
+    @SerializedName("value")
     @ColumnInfo(name = "value") var value: Int
 ) {
+    @SerializedName("id")
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0

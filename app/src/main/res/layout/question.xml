@@ -99,6 +99,17 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/submit_inspection"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_btn"
+                android:padding="3dp"
+                android:text="Submit Inspection"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                app:backgroundTint="@color/teal_200" />
+            <Button
                 android:id="@+id/complete_inspection"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
