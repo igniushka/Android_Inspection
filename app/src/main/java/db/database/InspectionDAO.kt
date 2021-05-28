@@ -61,9 +61,11 @@ interface InspectionDAO {
         type: String
     ): List<InspectionData>
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertReminder(reminder: InspectionReminder)
+
+    @Query("SELECT * FROM InspectionReminder WHERE user = :username")
+    fun getReminders(username: String): List<InspectionReminder>
 
 
 }

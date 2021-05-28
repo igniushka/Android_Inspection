@@ -34,7 +34,7 @@ class InspectionAdapter(
         holder.binding.location.text = inspection.location
         holder.binding.type.text = inspection.type
         holder.binding.completed.text = inspection.completed.toString()
-        holder.binding.inspection.setOnClickListener {
+        holder.binding.row.setOnClickListener {
             activity.startActivity(
                 Intent(activity, QuestionsActivity::class.java).putExtra(
                     SharedKeys.INSPECTION_ID,

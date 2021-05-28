@@ -9,7 +9,7 @@ import db.entity.*
 private const val DB_NAME = "inspection_db"
 
 @Database(
-    entities = [Answer::class, AnswerData::class, Inspection::class, InspectionData::class, Question::class, QuestionData::class, QuestionInspectionDataRelationship::class],
+    entities = [Answer::class, AnswerData::class, Inspection::class, InspectionData::class, Question::class, QuestionData::class, QuestionInspectionDataRelationship::class, InspectionReminder::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase(){

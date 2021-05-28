@@ -13,7 +13,11 @@ import db.database.InspectionDAO
 import db.entity.Answer
 
 
-class AnswerAdapter(private val answers: List<Answer>, private val dao: InspectionDAO, private val completed: Boolean) :
+class AnswerAdapter(
+    private val answers: List<Answer>,
+    private val dao: InspectionDAO,
+    private val completed: Boolean
+) :
     RecyclerView.Adapter<AnswerViewHolder>() {
     private var value: Int = 0
 

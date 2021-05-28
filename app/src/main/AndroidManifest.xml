@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="activity">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,22 +19,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"
-            android:launchMode="singleTask">
-        </activity>
-        <activity android:name=".HomeActivity"
-            android:launchMode="singleTask">
-        </activity>
-        <activity android:name=".NewInspectionActivity"
-            android:launchMode="singleTask">
-        </activity>
-        <activity android:name=".QuestionsActivity"
-            android:launchMode="singleTask">
-        </activity>
-        <activity android:name=".InspectionListActivity"
-            android:launchMode="singleTask">
-        </activity>
-
+        <activity
+            android:name=".RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".HomeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".NewInspectionActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".QuestionsActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".InspectionListActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".RemindersActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

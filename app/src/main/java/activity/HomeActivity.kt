@@ -2,16 +2,13 @@ package activity
 
 import activity.databinding.HomeBinding
 import android.content.Intent
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import api.InspectionViewModel
 import shared.SharedKeys
 import shared.SharedPreferenceWriter
-import util.NetworkUtils
 
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -57,14 +54,29 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun launchContinueInspectionActivity() {
-        startActivity(Intent(this, InspectionListActivity::class.java).putExtra(SharedKeys.COMPLETED, SharedKeys.FALSE))
+        startActivity(
+            Intent(
+                this,
+                InspectionListActivity::class.java
+            ).putExtra(SharedKeys.COMPLETED, SharedKeys.FALSE)
+        )
     }
 
     private fun launchViewCompletedInspectionActivity() {
-        startActivity(Intent(this, InspectionListActivity::class.java).putExtra(SharedKeys.COMPLETED, SharedKeys.TRUE))
+        startActivity(
+            Intent(
+                this,
+                InspectionListActivity::class.java
+            ).putExtra(SharedKeys.COMPLETED, SharedKeys.TRUE)
+        )
     }
 
-    private fun showSchedule(){
-
+    private fun showSchedule() {
+        startActivity(
+            Intent(
+                this,
+                RemindersActivity::class.java
+            )
+        )
     }
 }

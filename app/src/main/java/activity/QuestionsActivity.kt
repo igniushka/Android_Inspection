@@ -5,14 +5,10 @@ import adapter.AnswerAdapter
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import api.InspectionViewModel
@@ -21,12 +17,9 @@ import db.database.InspectionDAO
 import db.entity.InspectionReminder
 import db.relationship.InspectionWithQuestions
 import db.relationship.QuestionWithAnswers
-import kotlinx.android.synthetic.main.question.*
 import shared.SharedKeys
 import shared.SharedPreferenceWriter
 import util.NetworkUtils
-import java.time.Instant
-import java.util.*
 
 
 class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
@@ -146,8 +139,14 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         Context.CONNECTIVITY_SERVICE
         back()
     }
+
     private fun back() {
-        startActivity(Intent(this, InspectionListActivity::class.java).putExtra(SharedKeys.COMPLETED, completed.toString()))
+        startActivity(
+            Intent(
+                this,
+                InspectionListActivity::class.java
+            ).putExtra(SharedKeys.COMPLETED, completed.toString())
+        )
         finish()
     }
 
@@ -172,27 +171,23 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 val inspection = inspectionInfo.inspection
                 inspection.completed = true
                 dao.updateInspection(inspection)
-                if (NetworkUtils.isConnected(applicationContext)){
-                    submitInspection()
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Inspection completed",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    back()
-                }
+                Toast.makeText(
+                    this,
+                    "Inspection completed",
+                    Toast.LENGTH_SHORT
+                ).show()
+                back()
             }
             .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }
 
-    private fun submitInspection(){
-        if (NetworkUtils.isConnected(applicationContext)){
+    private fun submitInspection() {
+        if (NetworkUtils.isConnected(applicationContext)) {
             val inspection = dao.getInspectionQuestionAnswers(inspectionId)[0]
             val viewModel = InspectionViewModel(applicationContext)
-            viewModel.submitInspection(inspection).observe(this, { result  ->
+            viewModel.submitInspection(inspection).observe(this, { result ->
                 if (result != null) {
                     Toast.makeText(this, "Inspection Submitted!", Toast.LENGTH_SHORT).show()
                     dao.deleteInspection(inspection.inspection)
@@ -202,15 +197,25 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 }
             })
         } else {
-            Toast.makeText(this, "You need internet connection to submit the inspection", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "You need internet connection to submit the inspection",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    private fun setReminder(){
+    private fun setReminder() {
         val inspection = inspectionInfo.inspection
         val inspectionData = dao.getInspectionData(inspection.location, inspection.type)[0]
         val currentTime = System.currentTimeMillis()
-        val reminder = InspectionReminder(prefs!!.getString(SharedKeys.USERNAME)!!, inspectionData.period, inspectionData.location, inspectionData.type, currentTime)
+        val reminder = InspectionReminder(
+            prefs!!.getString(SharedKeys.USERNAME)!!,
+            inspectionData.period,
+            inspectionData.location,
+            inspectionData.type,
+            currentTime
+        )
         dao.insertReminder(reminder)
     }
 }
