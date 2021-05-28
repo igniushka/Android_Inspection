@@ -1,9 +1,7 @@
 package db.database
 
 import androidx.room.*
-import db.entity.Answer
-import db.entity.Inspection
-import db.entity.Question
+import db.entity.*
 import db.relationship.InspectionWithQuestions
 import db.relationship.InspectionWithQuestionsAndAnswers
 import db.relationship.InspectionWithQuestionsAndAnswersData
@@ -51,8 +49,21 @@ interface InspectionDAO {
     @Update
     fun updateInspection(inspection: Inspection)
 
+    @Delete
+    fun deleteInspection(inspection: Inspection)
+
     @Query("SELECT * FROM Inspection WHERE user = :username AND completed = :completed")
     fun getUserInspections(username: String, completed: Boolean): List<Inspection>
+
+    @Query("SELECT * FROM InspectionData WHERE location = :location AND type = :type")
+    fun getInspectionData(
+        location: String,
+        type: String
+    ): List<InspectionData>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertReminder(reminder: InspectionReminder)
 
 
 }

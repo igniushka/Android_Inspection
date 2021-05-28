@@ -6,9 +6,11 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -16,10 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import api.InspectionViewModel
 import db.database.DatabaseManager
 import db.database.InspectionDAO
+import db.entity.InspectionReminder
 import db.relationship.InspectionWithQuestions
 import db.relationship.QuestionWithAnswers
 import kotlinx.android.synthetic.main.question.*
 import shared.SharedKeys
+import shared.SharedPreferenceWriter
+import util.NetworkUtils
+import java.time.Instant
+import java.util.*
 
 
 class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
@@ -30,6 +37,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dao: InspectionDAO
     private var questionInfo: QuestionWithAnswers? = null
     private var completed = false
+    private var prefs: SharedPreferenceWriter? = null
 
 
     private var questionNo = 0
@@ -39,6 +47,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         completed = intent.extras?.getBoolean(SharedKeys.COMPLETED) == true
         dao = DatabaseManager.getInstance(applicationContext).getInspectionDAO()
         binding = DataBindingUtil.setContentView(this, R.layout.question)
+        prefs = SharedPreferenceWriter.getInstance(applicationContext)
         binding.prevQuestion.setOnClickListener(this)
         binding.nextQuestion.setOnClickListener(this)
         binding.back.setOnClickListener(this)
@@ -152,16 +161,6 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         setQuestionData()
     }
 
-    private fun submitInspection(){
-        val inspection = dao.getInspectionQuestionAnswers(inspectionId)[0]
-        val viewModel = InspectionViewModel(applicationContext)
-        viewModel.submitInspection(inspection).observe(this, { result  ->
-            if (result?.token != null) {
-                Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
     private fun completeInspection() {
         AlertDialog.Builder(this)
             .setTitle("Please Confirm")
@@ -173,19 +172,45 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 val inspection = inspectionInfo.inspection
                 inspection.completed = true
                 dao.updateInspection(inspection)
-                Toast.makeText(
-                    this,
-                    "Inspection completed",
-                    Toast.LENGTH_SHORT
-                ).show()
-                back()
-
+                if (NetworkUtils.isConnected(applicationContext)){
+                    submitInspection()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Inspection completed",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    back()
+                }
             }
             .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()
             }.show()
-
     }
 
+    private fun submitInspection(){
+        if (NetworkUtils.isConnected(applicationContext)){
+            val inspection = dao.getInspectionQuestionAnswers(inspectionId)[0]
+            val viewModel = InspectionViewModel(applicationContext)
+            viewModel.submitInspection(inspection).observe(this, { result  ->
+                if (result != null) {
+                    Toast.makeText(this, "Inspection Submitted!", Toast.LENGTH_SHORT).show()
+                    dao.deleteInspection(inspection.inspection)
+                    setReminder()
+                    back()
+                    finish()
+                }
+            })
+        } else {
+            Toast.makeText(this, "You need internet connection to submit the inspection", Toast.LENGTH_SHORT).show()
+        }
+    }
 
+    private fun setReminder(){
+        val inspection = inspectionInfo.inspection
+        val inspectionData = dao.getInspectionData(inspection.location, inspection.type)[0]
+        val currentTime = System.currentTimeMillis()
+        val reminder = InspectionReminder(prefs!!.getString(SharedKeys.USERNAME)!!, inspectionData.period, inspectionData.location, inspectionData.type, currentTime)
+        dao.insertReminder(reminder)
+    }
 }

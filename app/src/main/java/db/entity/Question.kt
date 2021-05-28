@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-
 @Entity(
     foreignKeys = [
         ForeignKey(
@@ -24,13 +23,10 @@ import androidx.room.PrimaryKey
 data class Question(
     @ColumnInfo(name = "inspectionId") val inspectionId: Long,
     @ColumnInfo(name = "questionDataId") val questionDataId: Long,
-    @ColumnInfo(name = "questionName") val questionName: String,
     @ColumnInfo(name = "question") val question: String,
     @ColumnInfo(name = "notApplicable") var notApplicable: Boolean,
     ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0
-
 }
-

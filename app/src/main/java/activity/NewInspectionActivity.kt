@@ -49,10 +49,10 @@ class NewInspectionActivity : AppCompatActivity(), View.OnClickListener {
         val newInspectionId = dao.insertNewInspection(newInspection)
         for (questionWithAnswers in inspectionQuestionsAnswers.questions){
             val questionData = questionWithAnswers.questionData
-            val newQuestion = Question(newInspectionId, questionData.questionDataId, questionData.questionName, questionData.question, false)
+            val newQuestion = Question(newInspectionId, questionData.questionDataId, questionData.question, false)
             val questionId = dao.insertNewQuestion(newQuestion)
             for (answerData in questionWithAnswers.answersData){
-                val newAnswer = Answer(questionId, answerData.id, answerData.answerName, answerData.answer, 0)
+                val newAnswer = Answer(questionId, answerData.id, answerData.answer, 0)
                 dao.insertNewAnswer(newAnswer)
             }
         }
@@ -70,6 +70,4 @@ class NewInspectionActivity : AppCompatActivity(), View.OnClickListener {
         }
 
     }
-
-
 }

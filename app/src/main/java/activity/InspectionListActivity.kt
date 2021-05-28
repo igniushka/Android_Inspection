@@ -21,10 +21,6 @@ class InspectionListActivity : AppCompatActivity(), View.OnClickListener {
         binding = DataBindingUtil.setContentView(this, R.layout.continue_inspection)
         binding.back.setOnClickListener(this)
         val completed = intent.extras!!.getString(SharedKeys.COMPLETED).equals(SharedKeys.TRUE)
-        if (completed) {
-            binding.submitCompleted.visibility = View.VISIBLE
-            binding.submitCompleted.setOnClickListener(this)
-        }
         val prefs = SharedPreferenceWriter.getInstance(applicationContext)
         val dao = DatabaseManager.getInstance(applicationContext).getInspectionDAO()
         val username = prefs!!.getString(SharedKeys.USERNAME)
@@ -40,13 +36,9 @@ class InspectionListActivity : AppCompatActivity(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
                 R.id.back -> onBackPressed()
-                R.id.submit_completed -> submitCompletedInvestigations()
             }
         }
     }
 
-    private fun submitCompletedInvestigations() {
-
-    }
 
 }

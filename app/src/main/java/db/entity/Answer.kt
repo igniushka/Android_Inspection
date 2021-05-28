@@ -26,8 +26,6 @@ data class Answer(
     @ColumnInfo(name = "questionId") val questionId: Long,
     @SerializedName("answerDataId")
     @ColumnInfo(name = "answerDataId") val answerDataId: Long,
-    @SerializedName("answerName")
-    @ColumnInfo(name = "answerName") val answerName: String,
     @SerializedName("answer")
     @ColumnInfo(name = "answer") val answer: String,
     @SerializedName("value")

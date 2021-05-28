@@ -2,6 +2,7 @@ package activity
 
 import activity.databinding.HomeBinding
 import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -64,8 +65,6 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showSchedule(){
-      val connected = NetworkUtils.isConnected(applicationContext)
-        Toast.makeText(applicationContext, connected.toString(), Toast.LENGTH_SHORT).show()
 
     }
 }
