@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import api.bean.ResponseBean
+import api.bean.SubmitInspectionBean
 import com.google.gson.Gson
 import com.google.gson.JsonIOException
 import com.google.gson.JsonSyntaxException
@@ -22,10 +24,9 @@ import shared.SharedPreferenceWriter
 
 const val SERVER_URL = "https://investigation-server.herokuapp.com/"
 
-class InspectionViewModel(applicationContext: Context): ViewModel() {
+class InspectionViewModel(applicationContext: Context) : ViewModel() {
     @SuppressLint("StaticFieldLeak")
     private val context = applicationContext
-
     private val prefs = SharedPreferenceWriter.getInstance(applicationContext)
     private val result = MutableLiveData<ResponseBean>()
     private val retrofit: Retrofit = Retrofit.Builder()
@@ -34,14 +35,14 @@ class InspectionViewModel(applicationContext: Context): ViewModel() {
         .build()
     private val inspectionAPI: InspectionService = retrofit.create(InspectionService::class.java)
 
-   private fun getErrorResponse(response: Response<ResponseBean>): ResponseBean? {
+    private fun getErrorResponse(response: Response<ResponseBean>): ResponseBean? {
         val gson = Gson()
         val type = object : TypeToken<ResponseBean>() {}.type
         return try {
             gson.fromJson(response.errorBody()!!.charStream(), type)
-        } catch (ignore: JsonIOException){
+        } catch (ignore: JsonIOException) {
             null
-        } catch (ignore: JsonSyntaxException){
+        } catch (ignore: JsonSyntaxException) {
             null
         }
     }
@@ -55,12 +56,13 @@ class InspectionViewModel(applicationContext: Context): ViewModel() {
                     result.value = null
                     var message = "An error occurred"
                     val error = getErrorResponse(response)
-                    if (error?.message != null){
+                    if (error?.message != null) {
                         message = error.message.toString()
                     }
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
             }
+
             override fun onFailure(call: Call<ResponseBean>, ignore: Throwable?) {
                 Toast.makeText(context, "An error occurred", Toast.LENGTH_SHORT).show()
                 result.value = null;
@@ -77,13 +79,25 @@ class InspectionViewModel(applicationContext: Context): ViewModel() {
     fun login(username: String, password: String): LiveData<ResponseBean> {
         return apiCall(inspectionAPI.login(username, password))
     }
-    fun verify(): LiveData<ResponseBean> {
-        val token = prefs?.getString(SharedKeys.TOKEN)
-            return apiCall(inspectionAPI.verify(token!!))
-    }
+
     fun submitInspection(inspectionInfo: InspectionWithQuestionsAndAnswers): LiveData<ResponseBean> {
-        val token = prefs?.getString(SharedKeys.TOKEN)
-        val body = SubmitInspectionBean(token!!, inspectionInfo)
-        return apiCall(inspectionAPI.submitInspection(body))
+        return apiCall(
+            inspectionAPI.submitInspection(
+                SubmitInspectionBean(
+                    getToken(),
+                    inspectionInfo
+                )
+            )
+        )
     }
+
+    fun getUserInspections(): LiveData<ResponseBean> {
+        return apiCall(inspectionAPI.getUserInspections(getToken()))
+    }
+
+    private fun getToken(): String {
+        return prefs!!.getString(SharedKeys.TOKEN)!!
+    }
+
+
 }

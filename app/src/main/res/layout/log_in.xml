@@ -58,7 +58,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/white"
                 android:textSize="15sp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:textAlignment="center"/>
 
             <LinearLayout

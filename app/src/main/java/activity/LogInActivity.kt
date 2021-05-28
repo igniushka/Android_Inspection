@@ -1,6 +1,6 @@
 package activity
 
-import activity.databinding.ActivityMainBinding
+import activity.databinding.LogInBinding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,16 +13,16 @@ import shared.SharedKeys
 import shared.SharedPreferenceWriter
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class LogInActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: InspectionViewModel
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: LogInBinding
     private var prefs: SharedPreferenceWriter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = InspectionViewModel(applicationContext)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.log_in)
         StaticDataInitializer().initialize(applicationContext)
         binding.progressBarCyclic.visibility = View.INVISIBLE
         binding.loginBtn.setOnClickListener(this)

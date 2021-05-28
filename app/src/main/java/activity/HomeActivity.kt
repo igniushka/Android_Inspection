@@ -4,11 +4,13 @@ import activity.databinding.HomeBinding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import api.InspectionViewModel
 import shared.SharedKeys
 import shared.SharedPreferenceWriter
+import util.NetworkUtils
 
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -29,6 +31,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding.history.setOnClickListener(this)
         binding.schedule.setOnClickListener(this)
         binding.logOut.setOnClickListener(this)
+        binding.submitted.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -39,6 +42,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.continue_inspection -> launchContinueInspectionActivity()
                 R.id.history -> launchViewCompletedInspectionActivity()
                 R.id.schedule -> showSchedule()
+                R.id.submitted -> showSubmitted()
+
             }
         }
     }
@@ -49,7 +54,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun logout() {
         prefs?.clearPreferenceValues()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, LogInActivity::class.java))
         finish()
     }
 
@@ -78,5 +83,19 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 RemindersActivity::class.java
             )
         )
+    }
+
+    private fun showSubmitted() {
+        if (NetworkUtils.isConnected(applicationContext)) {
+            startActivity(
+                Intent(
+                    this,
+                    SubmittedInspectionActivity::class.java
+                )
+            )
+        } else {
+            Toast.makeText(applicationContext, "Internet connection required", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }

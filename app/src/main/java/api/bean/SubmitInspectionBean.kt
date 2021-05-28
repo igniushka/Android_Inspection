@@ -1,4 +1,4 @@
-package api
+package api.bean
 
 import db.relationship.InspectionWithQuestionsAndAnswers
 

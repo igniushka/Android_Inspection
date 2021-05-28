@@ -65,6 +65,18 @@
                 />
             <Button
                 android:layout_marginTop="10dp"
+                android:id="@+id/submitted"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_btn"
+                android:text="View submitted"
+                android:textSize="13sp"
+                app:backgroundTint="@color/light_blue"
+                android:padding="3dp"
+                android:textColor="@color/white"
+                />
+            <Button
+                android:layout_marginTop="10dp"
                 android:id="@+id/schedule"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"

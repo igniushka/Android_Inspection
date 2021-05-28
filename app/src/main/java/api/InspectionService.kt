@@ -1,9 +1,8 @@
 package api
 
-import okhttp3.OkHttpClient
+import api.bean.ResponseBean
+import api.bean.SubmitInspectionBean
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -24,16 +23,17 @@ interface InspectionService {
         @Field("password") password: String
     ): Call<ResponseBean>
 
-    @FormUrlEncoded
-    @POST("/verify")
-    fun verify(
-        @Field("token") accessToken: String
-    ): Call<ResponseBean>
-
     @POST("/submitInspection")
     fun submitInspection(
         @Body body: SubmitInspectionBean
     ): Call<ResponseBean>
+
+    @FormUrlEncoded
+    @POST("/getUserInspections")
+    fun getUserInspections(
+        @Field("token") token: String
+    ): Call<ResponseBean>
+
 
 }
 

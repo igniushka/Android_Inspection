@@ -19,7 +19,7 @@ data class Inspection(
     @SerializedName("user")
     @ColumnInfo(name = "user") val user: String,
     @SerializedName("inspectionDataId")
-    @ColumnInfo(name = "inspectionDataId") val inspectionDataId: Long,
+    @ColumnInfo(name = "inspectionDataId") var inspectionDataId: Long =-1,
     @SerializedName("type")
     @ColumnInfo(name = "type") val type: String,
     @SerializedName("location")
