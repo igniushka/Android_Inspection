@@ -190,11 +190,11 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
             val inspection = dao.getInspectionQuestionAnswers(inspectionId)[0]
             val viewModel = InspectionViewModel(applicationContext)
             viewModel.submitInspection(inspection).observe(this, { result ->
+                binding.progressBarCyclic.visibility = View.GONE
                 if (result != null) {
                     Toast.makeText(this, "Inspection Submitted!", Toast.LENGTH_SHORT).show()
                     dao.deleteInspection(inspection.inspection)
                     setReminder()
-                    binding.progressBarCyclic.visibility = View.GONE
                     back()
                     finish()
                 }

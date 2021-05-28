@@ -42,7 +42,6 @@ class SubmittedInspectionAdapter(
                     inspection.id
                 )
             )
-            activity.finish()
         }
     }
 

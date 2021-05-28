@@ -37,6 +37,7 @@ class SubmittedQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         binding.progressBarCyclic.visibility = View.VISIBLE
         inspectionId = intent.extras!!.getLong(SharedKeys.INSPECTION_ID)
         viewModel.getInspectionInfo(inspectionId).observe(this, { result ->
+            binding.progressBarCyclic.visibility = View.GONE
             result?.let {
                 inspectionInfo = result.inspection
                 val inspectionLabel = inspectionInfo?.location + " " + inspectionInfo?.type
@@ -50,7 +51,7 @@ class SubmittedQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private fun setQuestionData() {
         val question = inspectionInfo?.questions?.get(questionNo)
         binding.questionText.text = question?.question
-        binding.naCheckbox.isChecked = question?.notApplicable == true
+        binding.naCheckbox.isChecked = question?.notApplicable == 1
         if (question != null) {
             question.answers?.let { setAnswers(it) }
         }

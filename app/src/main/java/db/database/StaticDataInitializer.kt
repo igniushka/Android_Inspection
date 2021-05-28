@@ -29,6 +29,8 @@ const val QUESTION_TYPE_3_2 = "Question 2 about inspection type 3"
 
 const val ANSWER_1_TO_QUESTION_A_1 = "Answer 1 to Question A 1"
 const val ANSWER_2_TO_QUESTION_A_1 = "Answer 2 to Question A 1"
+const val ANSWER_3_TO_QUESTION_A_1 = "Answer 3 to Question A 1"
+const val ANSWER_4_TO_QUESTION_A_1 = "Answer 4 to Question A 1"
 const val ANSWER_1_TO_QUESTION_A_2 = "Answer 1 to Question A 2"
 const val ANSWER_2_TO_QUESTION_A_2 = "Answer 2 to Question A 2"
 const val ANSWER_1_TO_QUESTION_B_1 = "Answer 1 to Question B 1"
@@ -109,6 +111,9 @@ class StaticDataInitializer {
         val answer22 = AnswerData(22, ANSWER_2_TO_QUESTION_1_TYPE_3, ANSWER_2_TO_QUESTION_1_TYPE_3, 11)
         val answer23 = AnswerData(23, ANSWER_1_TO_QUESTION_2_TYPE_3, ANSWER_1_TO_QUESTION_2_TYPE_3, 12)
         val answer24 = AnswerData(24, ANSWER_2_TO_QUESTION_2_TYPE_3, ANSWER_2_TO_QUESTION_2_TYPE_3, 12)
+        val answer25 = AnswerData(25, ANSWER_3_TO_QUESTION_A_1, ANSWER_3_TO_QUESTION_A_1, 1)
+        val answer26 = AnswerData(26, ANSWER_4_TO_QUESTION_A_1, ANSWER_4_TO_QUESTION_A_1, 1)
+
 
         //Create Inspection-Question Relationship objects
         val inspectionQuestion1 = QuestionInspectionDataRelationship(1, 1)
@@ -196,6 +201,9 @@ class StaticDataInitializer {
         dao.insertAnswerData(answer22)
         dao.insertAnswerData(answer23)
         dao.insertAnswerData(answer24)
+        dao.insertAnswerData(answer25)
+        dao.insertAnswerData(answer26)
+
 
         dao.insertInspectionQuestionRelationship(inspectionQuestion1)
         dao.insertInspectionQuestionRelationship(inspectionQuestion2)

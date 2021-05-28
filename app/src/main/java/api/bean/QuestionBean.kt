@@ -8,7 +8,7 @@ data class QuestionBean(
     @SerializedName("question")
     var question: String? = null,
     @SerializedName("notApplicable")
-    var notApplicable: Boolean? = null,
+    var notApplicable: Int? = null,
     @SerializedName("answers")
     var answers: List<AnswerBean>? = null
 )
