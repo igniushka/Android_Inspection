@@ -34,6 +34,13 @@ interface InspectionService {
         @Field("token") token: String
     ): Call<ResponseBean>
 
+    @FormUrlEncoded
+    @POST("/getInspectionInfo")
+    fun getInspectionInfo(
+        @Field("token") token: String,
+        @Field("inspectionId") inspectionId: Long
+    ): Call<ResponseBean>
+
 
 }
 

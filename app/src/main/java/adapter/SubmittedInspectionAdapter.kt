@@ -1,12 +1,15 @@
 package adapter
 import activity.R
+import activity.SubmittedQuestionsActivity
 import activity.databinding.InspectionBinding
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import api.bean.SubmittedInspectionBean
+import shared.SharedKeys
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,16 +36,13 @@ class SubmittedInspectionAdapter(
         val correctedDate = fixDate(inspection.date)
         holder.binding.completed.text = correctedDate
         holder.binding.row.setOnClickListener {
-//            activity.startActivity(
-//                Intent(activity, QuestionsActivity::class.java).putExtra(
-//                    SharedKeys.INSPECTION_ID,
-//                    inspection.id
-//                ).putExtra(
-//                    SharedKeys.COMPLETED,
-//                    completed
-//                )
-//            )
-//            activity.finish()
+            activity.startActivity(
+                Intent(activity, SubmittedQuestionsActivity::class.java).putExtra(
+                    SharedKeys.INSPECTION_ID,
+                    inspection.id
+                )
+            )
+            activity.finish()
         }
     }
 

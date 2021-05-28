@@ -12,5 +12,7 @@ data class SubmittedInspectionBean(
     @SerializedName("location")
     val location: String,
     @SerializedName("date")
-    val date: String
+    val date: String,
+    @SerializedName("questions")
+    var questions: List<QuestionBean>? = null
 )

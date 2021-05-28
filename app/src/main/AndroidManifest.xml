@@ -40,6 +40,9 @@
         <activity
             android:name=".SubmittedInspectionActivity"
             android:launchMode="singleTask" />
+        <activity
+            android:name=".SubmittedQuestionsActivity"
+            android:launchMode="singleTask" />
 
     </application>
 

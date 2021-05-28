@@ -12,4 +12,8 @@ class ResponseBean {
     @SerializedName("inspections")
     var inspections: List<SubmittedInspectionBean>? = null
 
+    @SerializedName("inspection")
+    var inspection: SubmittedInspectionBean? = null
+
+
 }

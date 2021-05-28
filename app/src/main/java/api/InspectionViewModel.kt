@@ -95,6 +95,10 @@ class InspectionViewModel(applicationContext: Context) : ViewModel() {
         return apiCall(inspectionAPI.getUserInspections(getToken()))
     }
 
+    fun getInspectionInfo(inspectionId: Long): LiveData<ResponseBean> {
+        return apiCall(inspectionAPI.getInspectionInfo(getToken(), inspectionId))
+    }
+
     private fun getToken(): String {
         return prefs!!.getString(SharedKeys.TOKEN)!!
     }

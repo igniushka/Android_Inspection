@@ -136,7 +136,6 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        Context.CONNECTIVITY_SERVICE
         back()
     }
 
