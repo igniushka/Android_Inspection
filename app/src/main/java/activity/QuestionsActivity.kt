@@ -168,6 +168,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
             .setPositiveButton(
                 "Yes"
             ) { _, _ ->
+                binding.progressBarCyclic.visibility = View.VISIBLE
                 val inspection = inspectionInfo.inspection
                 inspection.completed = true
                 dao.updateInspection(inspection)
@@ -176,6 +177,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     "Inspection completed",
                     Toast.LENGTH_SHORT
                 ).show()
+                binding.progressBarCyclic.visibility = View.GONE
                 back()
             }
             .setNegativeButton("No") { dialog, _ ->
@@ -185,6 +187,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun submitInspection() {
         if (NetworkUtils.isConnected(applicationContext)) {
+            binding.progressBarCyclic.visibility = View.VISIBLE
             val inspection = dao.getInspectionQuestionAnswers(inspectionId)[0]
             val viewModel = InspectionViewModel(applicationContext)
             viewModel.submitInspection(inspection).observe(this, { result ->
@@ -192,6 +195,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(this, "Inspection Submitted!", Toast.LENGTH_SHORT).show()
                     dao.deleteInspection(inspection.inspection)
                     setReminder()
+                    binding.progressBarCyclic.visibility = View.GONE
                     back()
                     finish()
                 }

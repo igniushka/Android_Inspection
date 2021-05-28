@@ -22,8 +22,10 @@ class SubmittedInspectionActivity : AppCompatActivity(), View.OnClickListener {
         binding.back.setOnClickListener(this)
         binding.completed.text = "Completed on"
         binding.continueInspectionText.text = "Select submitted inspection to view"
+        binding.progressBarCyclic.visibility = View.VISIBLE
         viewModel.getUserInspections().observe(this, { result ->
-            result.let { res ->
+            binding.progressBarCyclic.visibility = View.GONE
+            result?.let { res ->
                 val inspections = res.inspections
                 val inspectionsAdapter = inspections?.let {
                     SubmittedInspectionAdapter(it, this)
