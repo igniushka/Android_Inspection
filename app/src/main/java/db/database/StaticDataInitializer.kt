@@ -63,14 +63,14 @@ class StaticDataInitializer {
 
         //Create InspectionData objects
         val inspection1 = InspectionData(1, 1, LOCATION_A, TYPE_1)
-        val inspection2 = InspectionData(2, 5, LOCATION_A, TYPE_2)
-        val inspection3 = InspectionData(3, 5, LOCATION_A, TYPE_3)
-        val inspection4 = InspectionData(4, 5, LOCATION_B, TYPE_1)
-        val inspection5 = InspectionData(5, 5, LOCATION_B, TYPE_2)
-        val inspection6 = InspectionData(6, 5, LOCATION_B, TYPE_3)
-        val inspection7 = InspectionData(7, 5, LOCATION_C, TYPE_1)
-        val inspection8 = InspectionData(8, 5, LOCATION_C, TYPE_2)
-        val inspection9 = InspectionData(9, 5, LOCATION_C, TYPE_3)
+        val inspection2 = InspectionData(2, 0, LOCATION_A, TYPE_2)
+        val inspection3 = InspectionData(3, 7, LOCATION_A, TYPE_3)
+        val inspection4 = InspectionData(4, 20, LOCATION_B, TYPE_1)
+        val inspection5 = InspectionData(5, 12, LOCATION_B, TYPE_2)
+        val inspection6 = InspectionData(6, 10, LOCATION_B, TYPE_3)
+        val inspection7 = InspectionData(7, 55, LOCATION_C, TYPE_1)
+        val inspection8 = InspectionData(8, 36, LOCATION_C, TYPE_2)
+        val inspection9 = InspectionData(9, 48, LOCATION_C, TYPE_3)
 
         //Create QuestionData objects
         val question1 = QuestionData(1, QUESTION_A_1, QUESTION_A_1)
